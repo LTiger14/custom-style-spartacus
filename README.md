@@ -1,27 +1,54 @@
-# Templazy
+# Custom Spatacus Styles
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.3.
+## Custom styles
 
-## Development server
+You have two options for extending the Spartacus styles:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Extending the OOTB style in your `styles.scss` and defining your custom styles in the component style
 
-## Code scaffolding
+```
+// styles.scss
+$styleVersion: 3.4;
+@import "~@spartacus/styles/index";
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+app-custom-product-intro {
+  @extend %cx-product-intro !optional;
+}
+```
 
-## Build
+```
+// custom-product-intro.component.ts
+:host {
+  .code {
+    color: yellow;
+  }
+}
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The following example will use the OOTB style and override the .code color.
 
-## Running unit tests
+2. Extend the style in your component scss
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+// custom-product-intro.component.ts
 
-## Running end-to-end tests
+// Import required by the OOTB file
+@import "~@spartacus/styles/scss/cxbase/mixins";
+// Import the OOTB component style before importing it
+@import "~@spartacus/styles/scss/components/product/details/product-intro";
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+:host {
+  .code {
+    color: yellow;
+  }
+  @extend %cx-product-intro !optional;
+}
+```
 
-## Further help
+## How to use?
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Method `2.` is enabled by default.
+
+To use method `1.`:
+- Comment out `@extend %cx-product-intro !optional;` in `custom-product-intro.component.ts`
+- Un-comment the code in `styles.scss`
