@@ -1,0 +1,13 @@
+@import "~@spartacus/styles/scss/cxbase/mixins";
+@import "~@spartacus/styles/scss/components/product/details/product-intro";
+
+:host {
+  p {
+    color: blue;
+  }
+
+  .code {
+    color: yellow;
+  }
+  @extend %cx-product-intro !optional;
+}
